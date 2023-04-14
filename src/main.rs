@@ -1,29 +1,57 @@
 use std::io;
-use rand::{self, thread_rng, Rng};
+
 fn main(){
-    let rnum: u32 = thread_rng().gen_range(1..=100);
-
     loop{
-    let mut num = String::new();
-    println!("eneter a number");
+    let mut buffer = String::new();
+    let mut num1 = String::new();
+    let mut num2 = String::new();
 
-    io::stdin().read_line(&mut num).expect("failed to read input");
+    println!("please select an op");
+    io::stdin().read_line(&mut buffer).expect("failed to get op");
 
-    let num:u32 = num.trim().parse().expect("failed to get num");
+    println!("please enter a number");
+    io::stdin().read_line(&mut num1).expect("failed to get number");
+    let num1:i32 = num1.trim().parse().expect("failed to parse");
+    
+    println!("enter a second number");
+    io::stdin().read_line(&mut num2).expect("failed to get message");
+    let num2:i32 = num2.trim().parse().expect("failed to parse");
 
-    if num == rnum{
-        println!("good job");
-        break;
+    let op:char = buffer.trim().parse().expect("failed to parse");
+
+    if op == '+'{
+        println!("{}", add(num1,num2));
     }
-    else if num > rnum{
-        println!("your guess is bigger then the number")
+    else if op == '-'{
+        println!("{}",sub(num1,num2));
     }
-    else if num < rnum{
-        println!("your guess is smaller then the number")
+    else if op == '*'{
+        println!("{}",mul(num1,num2));
+    }
+    else if op == '/'{
+        println!("{}",div(num1,num2));
     }
     else{
-        println!("you guessed incorrectly\n the num was: {rnum}");
+        println!("invalid op");
+        break;
     }
 }
 }
+
+fn add(x:i32, y:i32) ->i32{
+    x+y
+}
+
+fn sub(x:i32, y:i32) ->i32{
+    x-y
+}
+
+fn mul(x:i32, y:i32) ->i32{
+    x*y
+}
+
+fn div(x:i32, y:i32) ->i32{
+    x/y
+}
+ 
 
