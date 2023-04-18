@@ -1,5 +1,4 @@
 use std::io;
-
 fn main() {
     loop{
     let mut buffer = String::new();
@@ -7,8 +6,20 @@ fn main() {
     let mut num2 = String::new();
 
     println!("please select an op");
-    io::stdin().read_line(&mut buffer).expect("failed to get op");
-    let buffer:char = buffer.trim().parse().expect("failed to parse");
+     match io::stdin().read_line(&mut buffer){
+        Ok(_) => {},
+        Err(_) => {
+            println!("failed to read line");
+            continue;
+        }
+    }
+    let buffer:char = match buffer.trim().parse(){
+        Ok(char) => char,
+        Err(_) => {
+            println!("invalid input");
+            continue;
+        }
+    };
 
    let op:Operation =  match buffer{
     '+' => Operation::Addition,
@@ -19,12 +30,36 @@ fn main() {
     };
 
     println!("please enter a number");
-    io::stdin().read_line(&mut num1).expect("failed to get number");
-    let num1:i32 = num1.trim().parse().expect("failed to parse");
+    match io::stdin().read_line(&mut num1){
+        Ok(_) =>{},
+        Err(_) =>{
+            println!("failed to read input");
+            continue;
+        }
+    };
+    let num1:i32 = match num1.trim().parse(){
+        Ok(input) => input,
+        Err(_) =>{
+            println!("failed to read input");
+            continue;
+        }
+    };
     
     println!("enter a second number");
-    io::stdin().read_line(&mut num2).expect("failed to get message");
-    let num2:i32 = num2.trim().parse().expect("failed to parse");
+    match io::stdin().read_line(&mut num2){
+        Ok(_) =>{},
+        Err(_) =>{
+            println!("failed to read input");
+            continue;
+        }
+    };
+    let num2:i32 = match num2.trim().parse(){
+        Ok(input) => input,
+        Err(_) =>{
+            println!("failed to read input");
+            continue;
+        }
+    };
 
     match  op {
         Operation::Addition => println!("{}",add(num1, num2)),
@@ -36,9 +71,18 @@ fn main() {
     println!("do you want to continue?, press 1 to continue and any other key to exit");
 
     let mut con = String::new();
-    io::stdin().read_line(&mut con).expect("failed to get input");
+    match io::stdin().read_line(&mut con){
+        Ok(_) =>{},
+        Err(_) =>{
+            println!("failed to read input");
+            continue;
+        }
+    };
 
-    let con:i32 = con.trim().parse().expect("failed to parse");
+    let con:i32 = match con.trim().parse(){
+        Ok(input) => input,
+        Err(_) =>break
+    };
 
     if con == 1 {
         continue;
@@ -71,5 +115,6 @@ fn mul(x:i32, y:i32) ->i32{
 fn div(x:i32, y:i32) ->i32{
     x/y
 }
+
  
 
