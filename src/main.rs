@@ -68,7 +68,7 @@ fn main() {
         Operation::Division => println!("{}",div(num1, num2))
     };
 
-    println!("do you want to continue?, press 1 to continue and any other key to exit");
+    println!("do you want to continue?\n press 1 to continue and any other key to exit");
 
     let mut con = String::new();
     match io::stdin().read_line(&mut con){
@@ -81,7 +81,7 @@ fn main() {
 
     let con:i32 = match con.trim().parse(){
         Ok(input) => input,
-        Err(_) =>break
+        Err(_) =>break //we want to break if the input is not one anyways
     };
 
     if con == 1 {
